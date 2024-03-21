@@ -1,6 +1,7 @@
 package cat.iesesteveterradas;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -35,14 +36,49 @@ public class Main {
 
             String myQuery = "";
 
+            // Query 1
             // Read the query from the file
             myQuery = readQuery(pathQuery1);
             // Execute the query
             String result = session.execute(new XQuery(myQuery));
+            // Save the result in a xml file
+            saveResult("query1", result);
             // Print the result
-            logger.info("Query Result:");
-            logger.info(result);
+            logger.info("Query Saved:");
+            //logger.info(result);
 
+            // Query 2
+            // Read the query from the file
+            myQuery = readQuery(pathQuery2);
+            // Execute the query
+            result = session.execute(new XQuery(myQuery));
+            // Save the result in a xml file
+            saveResult("query2", result);
+            // Print the result
+            logger.info("Query Saved:");
+            //logger.info(result);
+
+            // Query 3
+            // Read the query from the file
+            myQuery = readQuery(pathQuery3);
+            // Execute the query
+            result = session.execute(new XQuery(myQuery));
+            // Save the result in a xml file
+            saveResult("query3", result);
+            // Print the result
+            logger.info("Query Saved:");
+            //logger.info(result);
+
+            // Query 4
+            // Read the query from the file
+            myQuery = readQuery(pathQuery4);
+            // Execute the query
+            result = session.execute(new XQuery(myQuery));
+            // Save the result in a xml file
+            saveResult("query4", result);
+            // Print the result
+            logger.info("Query Saved:");
+            //logger.info(result);
 
         } catch (BaseXException e) {
             logger.error("Error connecting or executing the query: " + e.getMessage());
@@ -65,5 +101,17 @@ public class Main {
             logger.error(e.getMessage());
         }
         return query;
+    }
+    public static void saveResult(String name, String result) {
+        // save the result in a file
+        File fileResult = new File("data/output/" + name + ".xml");
+        try {
+            fileResult.createNewFile();
+            FileWriter myWriter = new FileWriter(fileResult);
+            myWriter.write(result);
+            myWriter.close();
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
     }
 }
